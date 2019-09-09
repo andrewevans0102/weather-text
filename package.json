@@ -4,8 +4,15 @@
   "description": "Send a forecast as a text message using an AWS Lambda and several APIs",
   "main": "lambda.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "create-lambda": "claudia create --region us-east-1 --handler lambda.handler",
+    "update-lambda": "claudia update --version dev --set-env OPEN_WEATHER_MAP_API_KEY=$WT_OPEN_WEATHER_MAP_API_KEY,LATITUDE=$WT_LATITUDE,LONGITUDE=$WT_LONGITUDE,TWILLO_ACCOUNT_SID=$WT_TWILLO_ACCOUNT_SID,TWILLO_AUTH_TOKEN=$WT_TWILLO_AUTH_TOKEN,TWILLO_ACCOUNT_PHONE_NUMBER=$WT_TWILLO_ACCOUNT_PHONE_NUMBER",
+    "local-test": "claudia test-lambda"
   },
   "author": "Andrew Evans",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.524.0",
+    "axios": "^0.19.0",
+    "twilio": "^3.34.0"
+  }
 }
