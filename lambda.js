@@ -39,7 +39,7 @@ exports.handler = async function (event, context) {
 	const longitude = process.env.LONGITUDE;
 	const units = 'imperial';
 
-	// OpenWeatherMapAPI Endpoint
+	// OpenWeatherMapAPI
 	const openWeatherMapAPIURL = 'https://api.openweathermap.org/data/2.5/weather?lat=' + latitude + '&lon='
     + longitude + '&units=' + units + '&appid=' + APIKey;
 	const currentWeather = await axios.get(openWeatherMapAPIURL)
@@ -48,14 +48,14 @@ exports.handler = async function (event, context) {
 			return;
 	  });
 
-	// NOAA Endpiont for metadata
+	// NOAA Metadata
 	const NOAAMetadata = await axios.get('https://api.weather.gov/points/' + latitude + ',' + longitude)
 	  .catch((error) => {
 		  console.log(error);
 		  return;
 	  });
 
-	// NOAA endpoint for weekly forecast
+	// NOAA Weekly
 	const NOAAWeeklyForecast = await axios.get(NOAAMetadata.data.properties.forecast)
 		.catch((error) => {
 			console.log(error);
@@ -80,11 +80,7 @@ exports.handler = async function (event, context) {
 		+ '\n'
 		+ 'forecast: ' + NOAAWeeklyForecast.data.properties.periods[0].detailedForecast + '\n'
 		+ '\n'
-		+ 'Have a good day! 🎉🎉 🎉 🎉'
-	const params = {
-		Message: message,
-		TopicArn: process.env.SNS_TOPIC
-	};
+		+ 'Have a good day! 🎉🎉 🎉 🎉';
 
 	let response = 'lambda completed with ';
 
