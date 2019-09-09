@@ -73,7 +73,7 @@ exports.handler = async function(event, context) {
 
   // NOAA Metadata
   const NOAAMetadata = await axios
-    .get("https://api.weather.gov/points/" + latitude + "," + longitude)
+    .get(`https://api.weather.gov/points/${latitude},${longitude}`)
     .catch(error => {
       console.log(error);
       return;
@@ -126,6 +126,7 @@ exports.handler = async function(event, context) {
     `wind: ${currentWeather.data.wind.speed.toFixed(0)} MPH\n` +
     `sunrise: ${sunrise} AM\n` +
     `sunset: ${sunset} PM\n` +
+    "\n" +
     `forecast: ${NOAAWeeklyForecast.data.properties.periods[0].detailedForecast}\n` +
     "\n" +
     "Have a good day! 🎉🎉 🎉 🎉";
