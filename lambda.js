@@ -37,7 +37,6 @@ exports.handler = async function (event, context) {
 	const APIKey = process.env.OPEN_WEATHER_MAP_API_KEY;
 	const latitude = process.env.LATITUDE;
 	const longitude = process.env.LONGITUDE;
-	const SNSTopic = process.env.SNS_TOPIC;
 	const units = 'imperial';
 
 	// OpenWeatherMapAPI Endpoint
