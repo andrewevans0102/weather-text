@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk');
 const axios = require('axios');
-const client = require('twilio')(process.env.TWILLO_ACCOUNT_SID, process.env.TWILLO_AUTH_TOKEN);
+const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
 /**
  * Helper method that formats number returned from OpenWeatherMapAPI into formatted timestamp for message
@@ -66,7 +66,7 @@ exports.handler = async function (event, context) {
 	const sunrise = formatTime(currentWeather.data.sys.sunrise);
 	const sunset = formatTime(currentWeather.data.sys.sunset);
 	const message =
-		'DUCK WEATHER:\n'
+		'WEATHER TEXT:\n'
 	 	+ '\n'
 		+ 'Good Morning!  ☀️ 💦 🌤 ⛈ \n'
 		+ 'Here\'s the lowdown for today...\n'
@@ -92,8 +92,8 @@ exports.handler = async function (event, context) {
 	await client.messages
 	  .create({
 	     body: message,
-	     from: process.env.TWILLO_ACCOUNT_PHONE_NUMBER,
-	     to: '<RECIEPIENT>'
+	     from: process.env.TWILIO_FROM,
+	     to: process.env.TWILIO_TO
 	   })
 	  .then((success) => {
 			console.log(success.sid);

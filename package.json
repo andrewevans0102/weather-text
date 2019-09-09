@@ -4,8 +4,8 @@
   "description": "Send a forecast as a text message using an AWS Lambda and several APIs",
   "main": "lambda.js",
   "scripts": {
-    "create-lambda": "claudia create --region us-east-1 --handler lambda.handler",
-    "update-lambda": "claudia update --version dev --set-env OPEN_WEATHER_MAP_API_KEY=$WT_OPEN_WEATHER_MAP_API_KEY,LATITUDE=$WT_LATITUDE,LONGITUDE=$WT_LONGITUDE,TWILLO_ACCOUNT_SID=$WT_TWILLO_ACCOUNT_SID,TWILLO_AUTH_TOKEN=$WT_TWILLO_AUTH_TOKEN,TWILLO_ACCOUNT_PHONE_NUMBER=$WT_TWILLO_ACCOUNT_PHONE_NUMBER",
+    "create-lambda": "claudia create --handler lambda.handler --region us-east-1 --version dev --set-env OPEN_WEATHER_MAP_API_KEY=$WT_OPEN_WEATHER_MAP_API_KEY,LATITUDE=$WT_LATITUDE,LONGITUDE=$WT_LONGITUDE,TWILIO_ACCOUNT_SID=$WT_TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN=$WT_TWILIO_AUTH_TOKEN,TWILIO_FROM=$WT_TWILIO_FROM,TWILIO_TO=$WT_TWILIO_TO",
+    "update-lambda": "claudia update --version dev --set-env OPEN_WEATHER_MAP_API_KEY=$WT_OPEN_WEATHER_MAP_API_KEY,LATITUDE=$WT_LATITUDE,LONGITUDE=$WT_LONGITUDE,TWILIO_ACCOUNT_SID=$WT_TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN=$WT_TWILIO_AUTH_TOKEN,TWILIO_FROM=$WT_TWILIO_FROM,TWILIO_TO=$WT_TWILIO_TO",
     "local-test": "claudia test-lambda"
   },
   "author": "Andrew Evans",

@@ -33,18 +33,20 @@ Here's the process flow:
 - `OPEN_WEATHER_MAP_API_KEY` = the registration key for an OpenWeatherMAPAPI account
 - `LATITUDE` = the Latitude of the location you want to get the forecast of
 - `LONGITUDE` = the Longitude of the location you want to get the forecast of
-- `TWILLO_ACCOUNT_SID` = the SID of a Twilio account for sending text messages
-- `TWILLO_AUTH_TOKEN` = the auth token of a Twilio account for sending text messages
-- `TWILLO_ACCOUNT_PHONE_NUMBER` = the phone number that is to be used with the Twilio account for sending text messages
+- `TWILIO_ACCOUNT_SID` = the SID of a Twilio account for sending text messages
+- `TWILIO_AUTH_TOKEN` = the auth token of a Twilio account for sending text messages
+- `TWILIO_FROM` = the phone number that is to be used with the Twilio account for sending text messages
+- `TWILIO_TO` = the phone number you want to send a text message to
 - In order to easily setup these values, please fill out the corresponding `<VALUE>` and paste this at the bottom of your terminal's bash_profile (or other associated shell)
 ```bash
 # weather-text
 export WT_OPEN_WEATHER_MAP_API_KEY=<VALUE>
 export WT_LATITUDE=<VALUE>
 export WT_LONGITUDE=<VALUE>
-export WT_TWILLO_ACCOUNT_SID=<VALUE>
-export WT_TWILLO_AUTH_TOKEN=<VALUE>
-export WT_TWILLO_ACCOUNT_PHONE_NUMBER=<VALUE>
+export WT_TWILIO_ACCOUNT_SID=<VALUE>
+export WT_TWILIO_AUTH_TOKEN=<VALUE>
+export WT_TWILIO_FROM=<VALUE>
+export WT_TWILIO_TO=<VALUE>
 ```
 
 ## NPM scripts
@@ -59,11 +61,10 @@ export WT_TWILLO_ACCOUNT_PHONE_NUMBER=<VALUE>
 - Install the ClaudiaJS CLI on your local machine
 - Create a trial account with Twilio (it is free and you get a starting credit)
 - Setup the Environment variables in the `npm script` that I mentioned above
-- In the `lambda.js` go to line 96 where the Twilio API is called and put your phone number
 - Run the `create-lambda` script to create the lambda in AWS
 - Run the `update-lambda` script to update the Lambda with the environment Variables
 - Run the `local-test` script to see it in action (and test it on a phone number of your choice)
-- and tada!  It should be working!
+- and tada! 🎉 🎉 🎉 🎉   It should be working!
 
 ## Contributions
 - This is a very small project, but PRs are welcome!

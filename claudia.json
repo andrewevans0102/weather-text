@@ -1,0 +1,7 @@
+{
+  "lambda": {
+    "role": "weather-text-executor",
+    "name": "weather-text",
+    "region": "us-east-1"
+  }
+}
