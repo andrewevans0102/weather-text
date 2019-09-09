@@ -26,6 +26,28 @@ function formatTime(time) {
 };
 
 /**
+ * helper method that retrieves the hours for the current day from the NOAA API hourly forecast
+ * @param  {[]} periods, array of hourly periods from NOAA API
+ * @return {[]} array of hourly periods specific to today
+ */
+function retrieveHours(periods) {
+  const today = new Date();
+  // get month starts counting at 0 so 8 = september
+  const monthNumber = parseInt(today.getMonth()) + 1;
+  let monthString = monthNumber.toString();
+  if(monthString.length === 1) {
+    monthString = '0' + monthString;
+  }
+  // get day of month 1-31 here
+  let dayString = today.getDate().toString();
+  if(dayString.length === 1) {
+    dayString = '0' + dayString;
+  }
+  const timePrefix = today.getFullYear() + '-' + monthString + '-' + dayString;
+  return periods.filter(period => period.startTime.toString().includes(timePrefix) === true);
+}
+
+/**
  * Current Weather is retrieved using openWeatherMapAPI
  * Weather Metadata and Forecast are retrieved from NOAA API
  * @param  {} event
@@ -62,6 +84,29 @@ exports.handler = async function (event, context) {
 			return;
 		});
 
+  // NOAA Hourly
+  const NOAAHourlyForecast = await axios.get(NOAAMetadata.data.properties.forecastHourly)
+    .catch((error) => {
+      console.log(error);
+      return;
+    });
+
+  const hoursToday = retrieveHours(NOAAHourlyForecast.data.properties.periods);
+
+  let highTemp = 0;
+  hoursToday.forEach((period) => {
+    if(parseInt(period.temperature) > highTemp) {
+      highTemp = period.temperature;
+    }
+  });
+
+  let lowTemp = highTemp;
+  hoursToday.forEach((period) => {
+    if(parseInt(period.temperature) < lowTemp) {
+      lowTemp = period.temperature;
+    }
+  });
+
 	const sunrise = formatTime(currentWeather.data.sys.sunrise);
 	const sunset = formatTime(currentWeather.data.sys.sunset);
 	const message =
@@ -72,8 +117,8 @@ exports.handler = async function (event, context) {
 		+ '\n'
 			// to show degree symbol on OSX hold shift + option + 8
 		+ 'temp: ' + currentWeather.data.main.temp.toFixed(0) + '°\n'
-		+ 'high: ' + currentWeather.data.main.temp_max.toFixed(0) + '°\n'
-		+ 'low: ' + currentWeather.data.main.temp_min.toFixed(0) + '°\n'
+		+ 'high: ' + highTemp.toString() + '°\n'
+		+ 'low: ' + lowTemp.toString() + '°\n'
 		+ 'wind: ' + currentWeather.data.wind.speed.toFixed(0) + ' MPH\n'
 		+ 'sunrise: ' + sunrise + ' AM\n'
 		+ 'sunset: ' + sunset + ' PM\n'
