@@ -1,0 +1,11 @@
+{
+  "name": "weather-text",
+  "version": "1.0.0",
+  "description": "Send a forecast as a text message using an AWS Lambda and several APIs",
+  "main": "lambda.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andrew Evans",
+  "license": "MIT"
+}
