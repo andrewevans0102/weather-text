@@ -1,4 +1,3 @@
-const AWS = require("aws-sdk");
 const axios = require("axios");
 const client = require("twilio")(
   process.env.TWILIO_ACCOUNT_SID,
@@ -60,7 +59,6 @@ function retrieveHours(periods) {
  * @return {}
  */
 exports.handler = async function(event, context) {
-  AWS.config.update({ region: "us-east-1" });
   const APIKey = process.env.OPEN_WEATHER_MAP_API_KEY;
   const latitude = process.env.LATITUDE;
   const longitude = process.env.LONGITUDE;
